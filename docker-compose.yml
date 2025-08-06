@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  accounts-service:
+    build:
+      context: ./accounts/AccountsService
+      dockerfile: Dockerfile
+    ports:
+      - "4001:4001"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    networks:
+      - graphql-fusion
+
+  reviews-service:
+    build:
+      context: ./reviews/ReviewsService
+      dockerfile: Dockerfile
+    ports:
+      - "4002:4002"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    networks:
+      - graphql-fusion
+
+  gateway:
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5001"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=http://+:80
+    depends_on:
+      - accounts-service
+      - reviews-service
+    networks:
+      - graphql-fusion
+
+  mesh-gateway:
+    build:
+      context: ./mesh-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    environment:
+      - MESH_CONFIG_NAME=.meshrc.yaml
+    depends_on:
+      - accounts-service
+      - reviews-service
+    networks:
+      - graphql-fusion
+
+networks:
+  graphql-fusion:
+    driver: bridge

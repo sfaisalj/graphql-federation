@@ -1,0 +1,14 @@
+schema {
+  query: Query
+}
+
+type Query {
+  accountById(id: String!): Account
+  accounts: [Account!]!
+}
+
+type Account {
+  id: String!
+  name: String!
+  email: String!
+}

@@ -1,0 +1,13 @@
+sources:
+  - name: accounts
+    handler:
+      graphql:
+        endpoint: http://accounts-service:4001/graphql
+  - name: reviews
+    handler:
+      graphql:
+        endpoint: http://reviews-service:4002/graphql
+
+serve:
+  port: 4000
+  hostname: 0.0.0.0

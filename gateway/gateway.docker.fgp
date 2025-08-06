@@ -1,0 +1,34 @@
+schema
+  @fusion(version: 1)
+  @transport(subgraph: "accounts", location: "http://accounts-service:80/graphql", kind: "HTTP")
+  @transport(subgraph: "reviews", location: "http://reviews-service:80/graphql", kind: "HTTP") {
+  query: Query
+}
+
+type Query {
+  accountById(id: String!): Account
+    @resolver(subgraph: "accounts", select: "{ accountById(id: $id) }", arguments: [ { name: "id", type: "String!" } ])
+  
+  accounts: [Account!]!
+    @resolver(subgraph: "accounts", select: "{ accounts }")
+  
+  reviewsByAccountId(accountId: String!): [Review!]!
+    @resolver(subgraph: "reviews", select: "{ reviewsByAccountId(accountId: $accountId) }", arguments: [ { name: "accountId", type: "String!" } ])
+  
+  reviews: [Review!]!
+    @resolver(subgraph: "reviews", select: "{ reviews }")
+}
+
+type Account
+  @source(subgraph: "accounts") {
+  id: String!
+  name: String!
+  email: String!
+}
+
+type Review
+  @source(subgraph: "reviews") {
+  id: String!
+  body: String!
+  accountId: String!
+}

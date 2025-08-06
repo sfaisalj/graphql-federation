@@ -1,0 +1,23 @@
+{
+  "name": "mesh-gateway",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "mesh dev",
+    "start": "mesh start",
+    "build": "mesh build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@graphql-mesh/cli": "^0.100.7",
+    "@graphql-mesh/graphql": "^0.104.6",
+    "@graphql-mesh/runtime": "^0.106.6",
+    "@graphql-mesh/utils": "^0.104.6",
+    "graphql": "^16.11.0"
+  }
+}

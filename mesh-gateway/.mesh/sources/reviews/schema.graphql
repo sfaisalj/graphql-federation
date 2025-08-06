@@ -1,0 +1,15 @@
+schema {
+  query: Query
+}
+
+type Query {
+  reviewById(id: String!): Review
+  reviewsByAccountId(accountId: String!): [Review!]!
+  reviews: [Review!]!
+}
+
+type Review {
+  id: String!
+  body: String!
+  accountId: String!
+}
