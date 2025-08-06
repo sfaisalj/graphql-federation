@@ -7,7 +7,7 @@ A distributed GraphQL architecture using HotChocolate Fusion, consisting of mult
 ```
 ┌─────────────────────┐
 │  Fusion Gateway     │  ← Main GraphQL endpoint
-│  (Port 5159/5001)   │
+│  (Port 5001/5001)   │
 └─────────┬───────────┘
           │
           ├── Accounts Service (Port 4001)
@@ -30,8 +30,8 @@ A distributed GraphQL architecture using HotChocolate Fusion, consisting of mult
 
 ### 3. Fusion Gateway
 - **Path**: `gateway/`
-- **Port**: 5159 (local) / 5001 (Docker)
-- **GraphQL Endpoint**: `http://localhost:5159/graphql`
+- **Port**: 5001 (local) / 5001 (Docker)
+- **GraphQL Endpoint**: `http://localhost:5001/graphql`
 - **Purpose**: Federates accounts and reviews services
 
 ## Running the Project
@@ -142,7 +142,7 @@ curl -X POST http://localhost:4002/graphql \
 
 **Fusion Gateway:**
 ```bash
-curl -X POST http://localhost:5159/graphql \
+curl -X POST http://localhost:5001/graphql \
   -H "Content-Type: application/json" \
   -d '{"query": "{ accounts { id name email } }"}'
 ```
@@ -287,13 +287,14 @@ type Account
 
 ### Port Configuration
 
-- **Development**: Services use random ports (5159, etc.)
+- **Development**: Services use random ports (5001, etc.)
 - **Docker**: Services use fixed ports (4001, 4002, 5001)
 - **Docker Internal**: Services communicate via service names
 
 ### Dependencies
 
-Install the Fusion CLI command
+Install the Fusion CLI:
+
 ```bash
 dotnet tool install --global HotChocolate.Fusion.CommandLine
 ```
@@ -306,7 +307,7 @@ Each service requires:
 
 ### Common Issues
 
-1. **Port Conflicts**: Check if ports 4001, 4002, 5001, 5159 are available
+1. **Port Conflicts**: Check if ports 4001, 4002, 5001, 5001 are available
 2. **Service Discovery**: Ensure all dependent services are running before starting gateway
 3. **Docker Network**: Services must be on the same Docker network to communicate
 
