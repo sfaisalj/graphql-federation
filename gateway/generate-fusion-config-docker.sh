@@ -2,6 +2,7 @@
 
 # Wait for services to be available in Docker network
 echo "Waiting for services to be ready..."
+dotnet tool install --global HotChocolate.Fusion.CommandLine
 sleep 10
 
 # Check if accounts service is available

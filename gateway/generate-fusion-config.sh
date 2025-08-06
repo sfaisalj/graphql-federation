@@ -2,6 +2,7 @@
 
 # Wait for services to be available
 echo "Waiting for services to be ready..."
+dotnet tool install --global HotChocolate.Fusion.CommandLine
 sleep 5
 
 # Check if accounts service is available (macOS compatible)
