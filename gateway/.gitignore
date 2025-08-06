@@ -1,2 +1,5 @@
 **/bin
 **/obj
+**/.fusion
+**/gateway.fgp
+**/gateway.docker.fgp

@@ -72,8 +72,8 @@ A distributed GraphQL architecture using HotChocolate Fusion, consisting of mult
 3. **Start Fusion Gateway:**
    ```bash
    cd gateway
-   dotnet run
-   # Running on http://localhost:5159
+   ./run-local.sh
+   # Running on http://localhost:5001
    ```
 
 ## Sample Queries
@@ -293,6 +293,10 @@ type Account
 
 ### Dependencies
 
+Install the Fusion CLI command
+```bash
+dotnet tool install --global HotChocolate.Fusion.CommandLine
+```
 Each service requires:
 - .NET 8.0 SDK
 - HotChocolate.AspNetCore (for individual services)

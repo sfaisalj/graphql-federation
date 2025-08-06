@@ -9,7 +9,6 @@ services:
       - "4001:4001"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:80
     networks:
       - graphql-fusion
 
@@ -21,7 +20,6 @@ services:
       - "4002:4002"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:80
     networks:
       - graphql-fusion
 
@@ -33,7 +31,6 @@ services:
       - "5001:5001"
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
-      - ASPNETCORE_URLS=http://+:80
     depends_on:
       - accounts-service
       - reviews-service
@@ -47,7 +44,7 @@ services:
     ports:
       - "4000:4000"
     environment:
-      - MESH_CONFIG_NAME=.meshrc.yaml
+      - MESH_CONFIG_NAME=.meshrc.docker.yaml
     depends_on:
       - accounts-service
       - reviews-service
