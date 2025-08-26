@@ -1,0 +1,120 @@
+<div class="container">
+  <header>
+    <h1>{{ title() }}</h1>
+    <p>Using graphql-request library</p>
+  </header>
+
+  <main>
+    @if (loading()) {
+      <div class="loading">Loading data...</div>
+    }
+
+    @if (error()) {
+      <div class="error">{{ error() }}</div>
+    }
+
+    <div class="actions">
+      <button (click)="loadData()" class="refresh-btn">Refresh Data</button>
+    </div>
+
+    <div class="forms-section">
+      <div class="form-card">
+        <h3>Create Account</h3>
+        <div class="form-group">
+          <label>Name:</label>
+          <input 
+            type="text" 
+            [value]="newAccountName()" 
+            (input)="newAccountName.set($any($event.target).value)"
+            placeholder="Enter account name">
+        </div>
+        <div class="form-group">
+          <label>Email:</label>
+          <input 
+            type="email" 
+            [value]="newAccountEmail()" 
+            (input)="newAccountEmail.set($any($event.target).value)"
+            placeholder="Enter email address">
+        </div>
+        <button (click)="createAccount()" class="submit-btn">Create Account</button>
+      </div>
+
+      <div class="form-card">
+        <h3>Create Review</h3>
+        <div class="form-group">
+          <label>Account:</label>
+          <select 
+            [value]="selectedAccountId()" 
+            (change)="selectedAccountId.set($any($event.target).value)">
+            <option value="">Select an account</option>
+            @for (account of accounts(); track account.id) {
+              <option [value]="account.id">{{ account.name }} ({{ account.email }})</option>
+            }
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Review Content:</label>
+          <textarea 
+            [value]="newReviewContent()" 
+            (input)="newReviewContent.set($any($event.target).value)"
+            placeholder="Enter your review"
+            rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Rating:</label>
+          <select 
+            [value]="newReviewRating()" 
+            (change)="newReviewRating.set(+$any($event.target).value)">
+            <option value="1">1 Star</option>
+            <option value="2">2 Stars</option>
+            <option value="3">3 Stars</option>
+            <option value="4">4 Stars</option>
+            <option value="5">5 Stars</option>
+          </select>
+        </div>
+        <button (click)="createReview()" class="submit-btn">Create Review</button>
+      </div>
+    </div>
+
+    <div class="data-section">
+      <section class="accounts-section">
+        <h2>Accounts ({{ accounts().length }})</h2>
+        @if (accounts().length > 0) {
+          <div class="accounts-grid">
+            @for (account of accounts(); track account.id) {
+              <div class="account-card">
+                <h3>{{ account.name }}</h3>
+                <p>{{ account.email }}</p>
+                <small>ID: {{ account.id }}</small>
+              </div>
+            }
+          </div>
+        } @else {
+          <p class="no-data">No accounts found.</p>
+        }
+      </section>
+
+      <section class="reviews-section">
+        <h2>Reviews ({{ reviews().length }})</h2>
+        @if (reviews().length > 0) {
+          <div class="reviews-grid">
+            @for (review of reviews(); track review.id) {
+              <div class="review-card">
+                <div class="review-header">
+                  <h4>Rating: {{ review.rating }}/5</h4>
+                  <small>Account: {{ review.accountId }}</small>
+                </div>
+                <p>{{ review.content }}</p>
+                <small>Review ID: {{ review.id }}</small>
+              </div>
+            }
+          </div>
+        } @else {
+          <p class="no-data">No reviews found.</p>
+        }
+      </section>
+    </div>
+  </main>
+
+  <router-outlet />
+</div>

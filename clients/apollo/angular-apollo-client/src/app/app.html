@@ -1,0 +1,52 @@
+<div class="container">
+  <header>
+    <h1>{{ title() }}</h1>
+    <p>Angular Apollo GraphQL Client</p>
+  </header>
+
+  <main>
+    @if (loading()) {
+      <div class="loading">Loading data...</div>
+    }
+
+    @if (error()) {
+      <div class="error">{{ error() }}</div>
+    }
+
+    <section class="accounts-section">
+      <h2>Accounts</h2>
+      @if (accounts().length > 0) {
+        <div class="accounts-grid">
+          @for (account of accounts(); track account.id) {
+            <div class="account-card">
+              <h3>{{ account.name }}</h3>
+              <p>{{ account.email }}</p>
+              <small>ID: {{ account.id }}</small>
+            </div>
+          }
+        </div>
+      } @else {
+        <p>No accounts found.</p>
+      }
+    </section>
+
+    <section class="reviews-section">
+      <h2>Reviews</h2>
+      @if (reviews().length > 0) {
+        <div class="reviews-grid">
+          @for (review of reviews(); track review.id) {
+            <div class="review-card">
+              <h4>Rating: {{ review.rating }}/5</h4>
+              <p>{{ review.content }}</p>
+              <small>Account ID: {{ review.accountId }}</small>
+            </div>
+          }
+        </div>
+      } @else {
+        <p>No reviews found.</p>
+      }
+    </section>
+  </main>
+
+  <router-outlet />
+</div>
